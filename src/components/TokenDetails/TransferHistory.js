@@ -3,8 +3,83 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import {Table, Row, Rows} from 'react-native-table-component';
 import {LOGIN_IMAGE} from '../../utils/images';
 import {color} from '../../utils/colors';
+import {
+  Font_SourceSansPro_Regular,
+  Font_SourceSansPro_Semibold,
+} from '../../utils/typograpy';
 function TransferHistory({assetsdata}) {
-  const tableHead = ['From', 'To', 'Transfer Date & Time'];
+  const getFormattedTransferDateTime = transferDate => {
+    const date = new Date(transferDate);
+
+    const transferTime = date.toLocaleTimeString(undefined, {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
+
+    const transferDateOnly = date.toLocaleDateString();
+    return {transferDateOnly, transferTime};
+  };
+  const formattedData = assetsdata.transferHistory.map(transfer => {
+    const {fromName, toName, tranferDate, fromType, toType} = transfer;
+    const {transferDateOnly, transferTime} =
+      getFormattedTransferDateTime(tranferDate);
+
+    return {
+      from: (
+        <View style={{padding: 2}}>
+          <View>
+            <Text
+              style={{
+                color: '#000',
+                fontSize: 13,
+                fontFamily: Font_SourceSansPro_Regular,
+              }}>
+              {fromName}
+            </Text>
+          </View>
+          <View style={styles.Type}>
+            <Text
+              style={{
+                color: color.primaryColor,
+                fontSize: 10,
+                padding: 2,
+                fontFamily: Font_SourceSansPro_Semibold,
+              }}>
+              {fromType}
+            </Text>
+          </View>
+        </View>
+      ),
+      to: (
+        <View style={{padding: 2}}>
+          <View>
+            <Text
+              style={{
+                color: '#000',
+                fontSize: 13,
+                fontFamily: Font_SourceSansPro_Regular,
+              }}>
+              {toName}
+            </Text>
+          </View>
+          <View style={styles.Type}>
+            <Text
+              style={{
+                color: color.primaryColor,
+                fontSize: 10,
+                padding: 2,
+                fontFamily: Font_SourceSansPro_Semibold,
+              }}>
+              {toType}
+            </Text>
+          </View>
+        </View>
+      ),
+      transferDateOnly,
+      transferTime,
+    };
+  });
 
   return (
     <View style={styles.container}>
@@ -12,12 +87,12 @@ function TransferHistory({assetsdata}) {
         <View style={styles.tableContainer}>
           <Table borderStyle={styles.tableBorder}>
             <Row
-              data={tableHead}
+              data={['From', 'To', 'Date', 'Time']} // Assuming these are your column headers
               style={styles.head}
               textStyle={styles.headText}
             />
             <Rows
-              data={assetsdata.transferHistory}
+              data={formattedData.map(data => Object.values(data))}
               textStyle={styles.rowText}
             />
           </Table>
@@ -33,7 +108,7 @@ function TransferHistory({assetsdata}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 6,
+    padding: 1,
   },
   tableContainer: {
     flex: 1,
@@ -45,20 +120,23 @@ const styles = StyleSheet.create({
   },
   head: {
     height: 40,
-    backgroundColor: '#f1f8ff',
+    backgroundColor: '#F1F1F9',
   },
   headText: {
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: Font_SourceSansPro_Semibold,
     color: '#000',
   },
   rowText: {
     textAlign: 'center',
+    color: '#000',
+    fontFamily: Font_SourceSansPro_Regular,
   },
   noDetailsContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    height: 300,
   },
   noDetailsText: {
     color: color.primaryColor,
@@ -66,7 +144,15 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: Font_SourceSansPro_Semibold,
+  },
+  Type: {
+    backgroundColor: '#F1F1F9',
+    fontSize: 10,
+    color: color.primaryColor,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 export default TransferHistory;

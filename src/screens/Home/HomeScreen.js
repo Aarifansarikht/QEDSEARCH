@@ -108,16 +108,15 @@ function HomeScreen(props) {
               style={{
                 fontSize: 24,
                 color: '#000',
-                fontFamily: Font_SourceSansPro_Bold,
-                fontWeight: 800,
+                fontFamily: Font_SourceSansPro_Semibold,
               }}>
               <Text
                 style={{
                   color: color.primaryColor,
                 }}>
-                Look up a Token{' '}
+                Look up a{' '}
               </Text>
-              at one go!
+              Token
             </Text>
           </View>
           <View style={styles.mainView}>
@@ -133,7 +132,12 @@ function HomeScreen(props) {
                 placeholder="Enter Token ID"
                 value={tokenId}
                 placeholderTextColor={'#000'}
-                style={{color: 'black', width: '70%', padding: 10}}
+                style={{
+                  color: 'black',
+                  width: '70%',
+                  padding: 10,
+                  fontFamily: Font_SourceSansPro_Regular,
+                }}
                 onChangeText={text => setTokenId(text)}
               />
               {tokenId == '' ? (
@@ -178,7 +182,9 @@ function HomeScreen(props) {
                   borderBottomRightRadius: 10,
                 }}
                 onPress={handleSearch}>
-                <Text style={{fontWeight: 700}}>Search</Text>
+                <Text style={{fontFamily: Font_SourceSansPro_Regular}}>
+                  Search
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -196,10 +202,11 @@ function HomeScreen(props) {
                   color: '#000',
                   fontSize: 24,
                   padding: 20,
-                  fontFamily: Font_SourceSansPro_Bold,
-                  fontWeight: 800,
+                  fontFamily: Font_SourceSansPro_Regular,
                 }}>
-                Token not found
+                {!assetsdata || (!assetsdata.tokenId && tokenId == '')
+                  ? 'Search Token'
+                  : '  Token not found'}
               </Text>
               <Image
                 source={require('../../assets/images/empty-coin-icon.png')}
@@ -253,7 +260,6 @@ function HomeScreen(props) {
                           lineHeight: 24.06,
                           textTransform: 'capitalize',
                           fontSize: 14,
-                          fontWeight: 800,
                         }}>
                         {item}
                       </Text>

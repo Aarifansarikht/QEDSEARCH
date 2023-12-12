@@ -29,6 +29,7 @@ import {
 import {
   Font_SourceSansPro_Bold,
   Font_SourceSansPro_Regular,
+  Font_SourceSansPro_Semibold,
 } from '../../utils/typograpy';
 import {SCREEN_WIDTH} from '../../utils/constants';
 import Swiper from 'react-native-swiper';
@@ -124,7 +125,9 @@ function TokenDetails({assetsdata, filedata, attachmentsdata}) {
             style={{color: color.naturalGrayColor, padding: 8}}
           />
           <View style={{flexDirection: 'column', gap: 5}}>
-            <Text style={{color: '#000', fontWeight: 800}}>{ownerName}</Text>
+            <Text style={{color: '#000', fontFamily: Font_SourceSansPro_Bold}}>
+              {ownerName}
+            </Text>
             <Text style={{color: '#000', fontSize: 12}}>{ownerWalletId}</Text>
             <TouchableOpacity
               style={{
@@ -136,7 +139,13 @@ function TokenDetails({assetsdata, filedata, attachmentsdata}) {
                 width: '50%',
               }}>
               <View>
-                <Text style={{color: color.primaryColor}}>Current owner</Text>
+                <Text
+                  style={{
+                    color: color.primaryColor,
+                    fontFamily: Font_SourceSansPro_Semibold,
+                  }}>
+                  Current owner
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -155,7 +164,9 @@ function TokenDetails({assetsdata, filedata, attachmentsdata}) {
             style={{color: color.naturalGrayColor, padding: 8}}
           />
           <View style={{flexDirection: 'column', gap: 5}}>
-            <Text style={{color: '#000', fontWeight: 800}}>{creatorName}</Text>
+            <Text style={{color: '#000', fontFamily: Font_SourceSansPro_Bold}}>
+              {creatorName}
+            </Text>
             <Text style={{color: '#000', fontSize: 12}}>{creatorWalletId}</Text>
             <TouchableOpacity
               style={{
@@ -167,7 +178,13 @@ function TokenDetails({assetsdata, filedata, attachmentsdata}) {
                 width: '50%',
               }}>
               <View>
-                <Text style={{color: color.primaryColor}}>Creator</Text>
+                <Text
+                  style={{
+                    color: color.primaryColor,
+                    fontFamily: Font_SourceSansPro_Semibold,
+                  }}>
+                  Creator
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -179,7 +196,9 @@ function TokenDetails({assetsdata, filedata, attachmentsdata}) {
           <View style={Styles.itemContent}>
             <Text style={Styles.itemtext}>Description</Text>
           </View>
-          <Text style={{color: '#000'}}>{description} </Text>
+          <Text style={{color: '#000', fontFamily: Font_SourceSansPro_Regular}}>
+            {description}{' '}
+          </Text>
 
           <View style={Styles.itemContent}>
             <Text style={Styles.itemtext}>Images</Text>
@@ -226,7 +245,7 @@ function TokenDetails({assetsdata, filedata, attachmentsdata}) {
           {console.log('jhjhsjhdjs')}
           {console.log(attachmentsdata)}
           {attachmentsdata == [] ? (
-            <Text>hkewfwhfwhkhjdklshfjhdjkfhjksdfh</Text>
+            <Text></Text>
           ) : (
             <View style={{flex: 1}}>
               {attachmentsdata?.map(item => {
@@ -278,17 +297,16 @@ const Styles = StyleSheet.create({
     gap: 5,
   },
   itemtext: {
-    color: color.naturalGrayColor,
+    fontSize: 15,
+    color: color.paragraphColor,
     fontFamily: Font_SourceSansPro_Bold,
-    fontWeight: '800',
-    fontSize: 14,
   },
   itemValue: {
-    color: '#000',
-    paddingLeft: 30,
-    fontFamily: Font_SourceSansPro_Bold,
-    fontSize: 20,
-    fontWeight: '800',
+    fontSize: 14,
+    color: color.paragraphColor,
+    fontFamily: Font_SourceSansPro_Regular,
+    lineHeight: 20.11,
+    flexWrap: 'wrap',
   },
   carouselItem: {
     flex: 1,
